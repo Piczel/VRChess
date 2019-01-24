@@ -6,6 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "ChessSquare.generated.h"
 
+class UStaticMeshComponent;
+class AChessPawn;
+class UMaterialInstance;
+
 UCLASS()
 class VRCHESS_API AChessSquare : public AActor
 {
@@ -16,11 +20,23 @@ public:
 	AChessSquare();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* MeshComp;
+
+	AChessPawn* CurrentPawn;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "Chess")
+	void OnChessPawnMoved(AChessPawn* MovedPawn);
+	
+	UFUNCTION(BlueprintCallable)
+	void UseMaterial(UMaterialInstance* Material);
+
+	UFUNCTION(BlueprintCallable)
+	void SetPawn(AChessPawn* Pawn);
+
+	UFUNCTION(BlueprintCallable)
+	void HandlePawnOverlap(AChessPawn* Pawn);
 };

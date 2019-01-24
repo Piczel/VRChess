@@ -3,11 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Pawn.h"
+#include "GameFramework/Actor.h"
 #include "ChessPawn.generated.h"
 
+class UStaticMeshComponent;
+class UMaterialInstance;
+class USceneComponent;
+
 UCLASS()
-class VRCHESS_API AChessPawn : public APawn
+class VRCHESS_API AChessPawn : public AActor
 {
 	GENERATED_BODY()
 
@@ -16,14 +20,34 @@ public:
 	AChessPawn();
 
 protected:
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* MeshComp;
+
+	UPROPERTY(EditAnywhere, Category = "Materials")
+	UMaterialInstance* MaterialDefault;
+
+	UPROPERTY(EditAnywhere, Category = "Materials")
+	UMaterialInstance* MaterialGrabbing;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	
+
+public:	
+
+	UPROPERTY(EditAnywhere, Category = "Chess")
+	bool isGrabbed;
+
+	UPROPERTY(EditAnywhere, Category = "Chess")
+	bool isStatic = true;
+
+	UFUNCTION(BlueprintCallable)
+	void PickUp(USceneComponent* AttachTo);
+
+	UFUNCTION(BlueprintCallable)
+	void Drop();
 
 };

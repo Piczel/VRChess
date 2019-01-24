@@ -1,26 +1,33 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ChessSquare.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/BoxComponent.h"
+#include "ChessPawn.h"
 
 // Sets default values
 AChessSquare::AChessSquare()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+ 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
+	RootComponent = MeshComp;
 
 }
 
-// Called when the game starts or when spawned
-void AChessSquare::BeginPlay()
+
+void AChessSquare::UseMaterial(UMaterialInstance* Material)
 {
-	Super::BeginPlay();
+	MeshComp->SetMaterial(0, Material);
+}
+
+void AChessSquare::SetPawn(AChessPawn* Pawn)
+{
+	CurrentPawn = Pawn;
+}
+
+void AChessSquare::HandlePawnOverlap(AChessPawn* Pawn)
+{
+	Pawn->SetActorLocation(GetActorLocation());
+	Pawn->SetActorRotation(GetActorRotation());
 	
+	OnChessPawnMoved(Pawn);
 }
-
-// Called every frame
-void AChessSquare::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-

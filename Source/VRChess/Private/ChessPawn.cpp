@@ -1,13 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ChessPawn.h"
+#include "Components/StaticMeshComponent.h"
+#include "Engine/EngineTypes.h"
 
 // Sets default values
 AChessPawn::AChessPawn()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
 
+	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
+	MeshComp->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+	MeshComp->SetCollisionResponseToAllChannels(ECR_Ignore);
+	MeshComp->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+	RootComponent = MeshComp;
 }
 
 // Called when the game starts or when spawned
@@ -17,17 +22,20 @@ void AChessPawn::BeginPlay()
 	
 }
 
-// Called every frame
-void AChessPawn::Tick(float DeltaTime)
+void AChessPawn::PickUp(USceneComponent* AttachTo)
 {
-	Super::Tick(DeltaTime);
-
+	MeshComp->SetMaterial(0, MaterialGrabbing);
+	MeshComp->SetSimulatePhysics(false);
+	
+	GetRootComponent()->AttachToComponent(AttachTo, FAttachmentTransformRules::KeepWorldTransform);
 }
 
-// Called to bind functionality to input
-void AChessPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AChessPawn::Drop()
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	MeshComp->SetMaterial(0, MaterialDefault);
+	MeshComp->SetSimulatePhysics(true);
 
+	DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 }
+
 
