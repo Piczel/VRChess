@@ -10,6 +10,24 @@ class UStaticMeshComponent;
 class UMaterialInstance;
 class USceneComponent;
 
+UENUM(BlueprintType)
+enum class EPawnType : uint8
+{
+	E_Pawn		UMETA(DisplayName = "Pawn"),
+	E_Rook		UMETA(DisplayName = "Rook"),
+	E_Knight	UMETA(DisplayName = "Knight"),
+	E_Bishop	UMETA(DisplayName = "Bishop"),
+	E_Queen		UMETA(DisplayName = "Queen"),
+	E_King		UMETA(DisplayName = "King")
+};
+
+UENUM(BlueprintType)
+enum class EPawnColor : uint8
+{
+	E_White		UMETA(DisplayName = "White"),
+	E_Black		UMETA(DisplayName = "Black")
+};
+
 UCLASS()
 class VRCHESS_API AChessPawn : public AActor
 {
@@ -21,7 +39,7 @@ public:
 
 protected:
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* MeshComp;
 
 	UPROPERTY(EditAnywhere, Category = "Materials")
@@ -30,23 +48,27 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Materials")
 	UMaterialInstance* MaterialGrabbing;
 
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-
-	
-
 public:	
 
-	UPROPERTY(EditAnywhere, Category = "Chess")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chess")
 	bool isGrabbed;
 
-	UPROPERTY(EditAnywhere, Category = "Chess")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chess")
 	bool isStatic = true;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chess")
+	EPawnType PawnType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chess")
+	EPawnColor PawnColor;
+	
 	UFUNCTION(BlueprintCallable)
 	void PickUp(USceneComponent* AttachTo);
-
+	 
 	UFUNCTION(BlueprintCallable)
 	void Drop();
 

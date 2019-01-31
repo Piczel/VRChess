@@ -9,25 +9,21 @@
 AChessSquare::AChessSquare()
 {
  	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
+	MeshComp->SetCollisionResponseToAllChannels(ECR_Block);
 	RootComponent = MeshComp;
 
 }
-
 
 void AChessSquare::UseMaterial(UMaterialInstance* Material)
 {
 	MeshComp->SetMaterial(0, Material);
 }
 
-void AChessSquare::SetPawn(AChessPawn* Pawn)
-{
-	CurrentPawn = Pawn;
-}
-
 void AChessSquare::HandlePawnOverlap(AChessPawn* Pawn)
 {
+
+	// Snapping
 	Pawn->SetActorLocation(GetActorLocation());
 	Pawn->SetActorRotation(GetActorRotation());
 	
-	OnChessPawnMoved(Pawn);
 }

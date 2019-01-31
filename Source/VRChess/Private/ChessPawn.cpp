@@ -12,6 +12,7 @@ AChessPawn::AChessPawn()
 	MeshComp->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
 	MeshComp->SetCollisionResponseToAllChannels(ECR_Ignore);
 	MeshComp->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Block);
+	MeshComp->SetCollisionObjectType(ECC_WorldDynamic);
 	RootComponent = MeshComp;
 }
 
@@ -24,6 +25,7 @@ void AChessPawn::BeginPlay()
 
 void AChessPawn::PickUp(USceneComponent* AttachTo)
 {
+	isGrabbed = true;
 	MeshComp->SetMaterial(0, MaterialGrabbing);
 	MeshComp->SetSimulatePhysics(false);
 	
@@ -32,6 +34,7 @@ void AChessPawn::PickUp(USceneComponent* AttachTo)
 
 void AChessPawn::Drop()
 {
+	isGrabbed = false;
 	MeshComp->SetMaterial(0, MaterialDefault);
 	MeshComp->SetSimulatePhysics(true);
 

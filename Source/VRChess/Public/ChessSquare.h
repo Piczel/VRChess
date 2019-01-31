@@ -21,10 +21,9 @@ public:
 
 protected:
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* MeshComp;
 
-	AChessPawn* CurrentPawn;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UStaticMeshComponent* MeshComp;
 
 public:	
 
@@ -33,9 +32,6 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void UseMaterial(UMaterialInstance* Material);
-
-	UFUNCTION(BlueprintCallable)
-	void SetPawn(AChessPawn* Pawn);
 
 	UFUNCTION(BlueprintCallable)
 	void HandlePawnOverlap(AChessPawn* Pawn);
