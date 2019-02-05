@@ -10,7 +10,7 @@ AChessEngine::AChessEngine()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	FString tempPathToExecutable = FString("C:\\ueprojects\\VRChess\\External\\stockfish-10-win\\Windows\\stockfish_10_x64.exe");
+	FString tempPathToExecutable = FString("C:\\Users\\maker\\Documents\\Unreal Projects\\samuel.eckerrot\\VRChess\\External\\stockfish-10-win\\Windows\\stockfish_10_x64.exe");
 
 	StockFishProcess = new FInteractiveProcess(tempPathToExecutable, FString(""), true);
 

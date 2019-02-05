@@ -67,9 +67,9 @@ public:
 	EPawnColor PawnColor;
 	
 	UFUNCTION(BlueprintCallable)
-	void PickUp(USceneComponent* AttachTo);
+	void PawnPickUp(USceneComponent* AttachTo);
 	 
 	UFUNCTION(BlueprintCallable)
-	void Drop();
+	void PawnDrop();
 
 };

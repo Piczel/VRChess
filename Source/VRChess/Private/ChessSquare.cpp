@@ -24,6 +24,14 @@ void AChessSquare::HandlePawnOverlap(AChessPawn* Pawn)
 
 	// Snapping
 	Pawn->SetActorLocation(GetActorLocation());
-	Pawn->SetActorRotation(GetActorRotation());
+	
+	FRotator Rotation = GetActorRotation();
+
+	if (Pawn->PawnColor == EPawnColor::E_White)
+	{
+		Rotation.Yaw += 180;
+	}
+
+	Pawn->SetActorRotation(Rotation);
 	
 }

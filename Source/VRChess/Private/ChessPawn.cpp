@@ -23,7 +23,7 @@ void AChessPawn::BeginPlay()
 	
 }
 
-void AChessPawn::PickUp(USceneComponent* AttachTo)
+void AChessPawn::PawnPickUp(USceneComponent* AttachTo)
 {
 	isGrabbed = true;
 	MeshComp->SetMaterial(0, MaterialGrabbing);
@@ -32,7 +32,7 @@ void AChessPawn::PickUp(USceneComponent* AttachTo)
 	GetRootComponent()->AttachToComponent(AttachTo, FAttachmentTransformRules::KeepWorldTransform);
 }
 
-void AChessPawn::Drop()
+void AChessPawn::PawnDrop()
 {
 	isGrabbed = false;
 	MeshComp->SetMaterial(0, MaterialDefault);
