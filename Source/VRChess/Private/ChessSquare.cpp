@@ -19,7 +19,7 @@ void AChessSquare::UseMaterial(UMaterialInstance* Material)
 	MeshComp->SetMaterial(0, Material);
 }
 
-void AChessSquare::HandlePawnOverlap(AChessPawn* Pawn)
+void AChessSquare::Snap3D(AChessPawn* Pawn)
 {
 
 	// Snapping

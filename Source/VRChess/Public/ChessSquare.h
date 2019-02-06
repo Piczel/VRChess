@@ -34,5 +34,5 @@ public:
 	void UseMaterial(UMaterialInstance* Material);
 
 	UFUNCTION(BlueprintCallable)
-	void HandlePawnOverlap(AChessPawn* Pawn);
+	void Snap3D(AChessPawn* Pawn);
 };
